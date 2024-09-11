@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -31,9 +30,11 @@
 
             var options = {
                 title: 'Nombre de Commits par Minute',
-                hAxis: { title: 'Minute', titleTextStyle: { color: '#333' } },
+                hAxis: { title: 'Minute', titleTextStyle: { color: '#333' }, slantedText: true, slantedTextAngle: 45 },
                 vAxis: { title: 'Nombre de Commits' },
-                legend: { position: 'none' }
+                legend: { position: 'none' },
+                tooltip: { trigger: 'selection' },
+                curveType: 'function'
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
