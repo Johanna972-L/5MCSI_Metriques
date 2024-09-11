@@ -13,6 +13,12 @@
     <canvas id="commitsChart" width="400" height="200"></canvas>
 
     <script>
+        // Fonction pour extraire les minutes d'une date formatée comme "2024-02-11T11:57:27Z"
+        function extractMinutes(dateString) {
+            const dateObject = new Date(dateString);
+            return dateObject.getMinutes();  // On obtient les minutes
+        }
+
         // Fonction pour récupérer les commits depuis l'API GitHub
         async function fetchCommits() {
             const response = await fetch('https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits');
@@ -22,8 +28,8 @@
             const commitsByMinute = {};
             
             commits.forEach(commit => {
-                const commitDate = new Date(commit.commit.author.date);
-                const minutes = `${commitDate.getHours()}:${('0' + commitDate.getMinutes()).slice(-2)}`;
+                const commitDate = commit.commit.author.date;
+                const minutes = extractMinutes(commitDate);  // Extraire les minutes
                 
                 if (!commitsByMinute[minutes]) {
                     commitsByMinute[minutes] = 0;
