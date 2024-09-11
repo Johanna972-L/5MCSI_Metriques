@@ -37,7 +37,7 @@ def monhistogramme():
   return render_template("histogramme.html")
 
 @app.route('/commits/')
-def commits():
+def commits_data():
     try:
         # URL de l'API GitHub pour obtenir les commits
         url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits'
@@ -61,5 +61,8 @@ def commits():
     except Exception as e:
         return jsonify({'error': 'Erreur lors du traitement des données', 'details': str(e)}), 500
 
+def commits():
+  return render_template("commits.html")
+  
 if __name__ == "__main__":
   app.run(debug=True)
