@@ -36,6 +36,13 @@ def mongraphique():
 def monhistogramme():
   return render_template("histogramme.html")
 
+@app.route('/extract-minutes/<date_string>')
+def extract_minutes(date_string):
+    # Convertir la chaîne en un objet datetime
+    date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+    minutes = date_object.minute  # Extraire les minutes
+    return jsonify({'minutes': minutes})
+  
 @app.route('/commits/')
 def commits():
   return render_template("commits.html")
