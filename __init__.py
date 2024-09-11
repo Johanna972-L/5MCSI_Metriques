@@ -35,6 +35,40 @@ def mongraphique():
 @app.route("/histogramme/")
 def monhistogramme():
   return render_template("histogramme.html")
+
+@app.route('/commits/')
+def commits():
+    # URL de l'API GitHub pour obtenir les commits
+    url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits'
+    
+    # Effectuer la requête GET
+    response = requests.get(url)
+    data = response.json()
+    
+    # Traitement des données
+    datetime_format = "%Y-%m-%dT%H:%M:%SZ"
+    dates = [datetime.strptime(commit['commit']['author']['date'], datetime_format).replace(tzinfo=pytz.UTC) for commit in data]
+    counter = Counter([date.strftime("%Y-%m-%d %H:%M") for date in dates])
+    
+    # Préparer les données pour le graphique
+    minutes = list(counter.keys())
+    commit_counts = list(counter.values())
+    
+    # Création du graphique
+    plt.figure(figsize=(10, 6))
+    plt.plot(minutes, commit_counts, marker='o')
+    plt.xlabel('Minute')
+    plt.ylabel('Nombre de Commits')
+    plt.title('Nombre de Commits par Minute')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    
+    # Sauvegarder le graphique
+    file_path = 'static/commits_per_minute.png'
+    plt.savefig(file_path)
+    plt.close()
+    
+    return send_file(file_path, mimetype='image/png')
   
 if __name__ == "__main__":
   app.run(debug=True)
