@@ -4,7 +4,7 @@ from flask import json
 from datetime import datetime
 from urllib.request import urlopen
 from collections import Counter
-import sqlite3, requests
+import sqlite3
                                                                                                                                        
 app = Flask(__name__)                                                                                                                  
 
@@ -35,35 +35,6 @@ def mongraphique():
 @app.route("/histogramme/")
 def monhistogramme():
   return render_template("histogramme.html")
-
-@app.route('/commits-data/')
-def commits_data():
-    try:
-        # URL de l'API GitHub pour obtenir les commits
-        url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits'
-        response = requests.get(url)
-        response.raise_for_status()  # Vérifie les erreurs HTTP
-        commits_data = response.json()
-
-        # Extraire les dates des commits et convertir en minutes
-        commit_times = [commit['commit']['author']['date'] for commit in commits_data]
-        minutes = [datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M') for date in commit_times]
-
-        # Compter les occurrences de chaque minute
-        minute_counts = Counter(minutes)
-        
-        # Convertir les données en format utilisable pour Google Charts
-        data = [{'minute': minute, 'count': count} for minute, count in minute_counts.items()]
-        return jsonify(data)
-    
-    except requests.RequestException as e:
-        return jsonify({'error': 'Erreur de connexion à l\'API GitHub', 'details': str(e)}), 502
-    except Exception as e:
-        return jsonify({'error': 'Erreur lors du traitement des données', 'details': str(e)}), 500
-
-@app.route('/commits/')
-def commits_page():
-  return render_template("commits.html")
   
 if __name__ == "__main__":
   app.run(debug=True)
