@@ -9,7 +9,7 @@
         google.charts.setOnLoadCallback(loadCommitData);
 
         function loadCommitData() {
-            fetch('/commits/')
+            fetch('/commits-data/')
                 .then(response => response.json())
                 .then(data => {
                     drawChart(data);
