@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Évolution des températures - Tawarano</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      // Chargement de la bibliothèque 'corechart'
+      google.charts.load('current', { packages: ['corechart'] });
+
+      // Quand Google Charts est prêt, on fait une requête pour récupérer les données
+      google.charts.setOnLoadCallback(loadTemperatureData);
+
+      // Fonction qui récupère les données via fetch
+      function loadTemperatureData() {
+        fetch('/tawarano/')
+          .then(response => response.json())
+          .then(data => {
+            // Une fois les données récupérées, on appelle la fonction pour dessiner le graphique
+            drawChart(data);
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération des données:', error);
+          });
+      }
+
+      // Fonction qui dessine le graphique
+      function drawChart(temperatureData) {
+        // Formatage des données récupérées pour Google Charts
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Mois');  // Colonne pour les mois
+        data.addColumn('number', 'Température (°C)');  // Colonne pour les températures
+
+        // Parcourir les données récupérées pour les insérer dans le DataTable
+        temperatureData.forEach(function(item) {
+          data.addRow([item.mois, item.temperature]);
+        });
+
+        // Options de présentation du graphique
+        var options = {
+          title: 'Évolution des températures mensuelles à Tawarano',
+          hAxis: { title: 'Mois', titleTextStyle: { color: '#333' } },
+          vAxis: { minValue: 0, title: 'Température (°C)' },
+          legend: { position: 'none' }
+        };
+
+        // Création du graphique
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Div où le graphique sera affiché -->
+    <h1>Histogramme des températures à Tawarano</h1>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+  </body>
+</html>
