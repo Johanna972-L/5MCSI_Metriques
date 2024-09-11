@@ -36,7 +36,7 @@ def mongraphique():
 def monhistogramme():
   return render_template("histogramme.html")
 
-@app.route('/commits_data/')
+@app.route('/commits-data/')
 def commits_data():
     try:
         # URL de l'API GitHub pour obtenir les commits
@@ -61,7 +61,8 @@ def commits_data():
     except Exception as e:
         return jsonify({'error': 'Erreur lors du traitement des données', 'details': str(e)}), 500
 
-def commits-page():
+@app.route('/commits/')
+def commits_page():
   return render_template("commits.html")
   
 if __name__ == "__main__":
