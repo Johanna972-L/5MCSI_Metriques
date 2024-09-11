@@ -1,68 +1,62 @@
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histogramme des Températures à Tawarano</title>
-    <!-- Chargement de la bibliothèque Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      // Chargement de la bibliothèque 'corechart' pour les graphiques
       google.charts.load('current', {packages: ['corechart']});
-
-      // Lorsque la bibliothèque est chargée, on appelle la fonction pour récupérer les données
       google.charts.setOnLoadCallback(loadTemperatureData);
 
-      // Fonction pour récupérer les données via fetch
       function loadTemperatureData() {
         fetch('/tawarano/')
           .then(response => {
-            // Vérifie si la requête est OK
             if (!response.ok) {
               throw new Error('Erreur de récupération des données');
             }
             return response.json();
           })
           .then(data => {
-            // Une fois les données récupérées, on dessine le graphique
-            drawChart(data);
+            // Convertir les données du format API au format attendu par Google Charts
+            const formattedData = data.results.map(item => {
+              // Convertir le timestamp Unix en date
+              const date = new Date(item.Jour * 1000);  // Convertir en millisecondes
+              // Obtenir le mois en format textuel (Janvier, Février, etc.)
+              const mois = date.toLocaleString('fr-FR', { month: 'long' });
+              // Retourner l'objet dans le format attendu par Google Charts
+              return { mois, temperature: item.temp - 273.15 };  // Conversion de Kelvin en °C
+            });
+            drawChart(formattedData);
           })
           .catch(error => {
             console.error('Erreur lors de la récupération des données:', error);
           });
       }
 
-      // Fonction pour dessiner l'histogramme
       function drawChart(temperatureData) {
-        // Créer une table de données pour Google Charts
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Mois');  // Colonne pour les mois
-        data.addColumn('number', 'Température (°C)');  // Colonne pour les températures
+        data.addColumn('string', 'Mois');
+        data.addColumn('number', 'Température (°C)');
 
-        // Insérer les données récupérées dans le tableau
         temperatureData.forEach(function(item) {
           data.addRow([item.mois, item.temperature]);
         });
 
-        // Options de configuration du graphique
         var options = {
           title: 'Évolution des températures mensuelles à Tawarano',
           hAxis: { title: 'Mois', titleTextStyle: { color: '#333' } },
           vAxis: { title: 'Température (°C)', minValue: 0 },
-          legend: { position: 'none' },  // Pas de légende nécessaire
-          histogram: { bucketSize: 5 },  // Définit la taille des barres dans l'histogramme
-          colors: ['#76A7FA'],  // Couleur des barres
+          legend: { position: 'none' },
+          colors: ['#76A7FA']
         };
 
-        // Dessiner l'histogramme dans le div avec l'ID 'chart_div'
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
     </script>
-  </head>
-
-  <body>
-    <!-- Section où le graphique sera affiché -->
+</head>
+<body>
     <h1>Histogramme des Températures à Tawarano</h1>
     <div id="chart_div" style="width: 100%; height: 500px;"></div>
-  </body>
+</body>
 </html>
