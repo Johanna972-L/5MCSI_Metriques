@@ -6,87 +6,79 @@
     <title>Contactez-Nous</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
             margin: 0;
             padding: 0;
         }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
         header {
-            background: #333;
+            background-color: #4CAF50;
             color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #e8491d 4px solid;
+            padding: 20px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 2.5rem;
+            font-weight: 300;
         }
-        .form-container {
-            background: #fff;
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .form-container h2 {
-            margin-top: 0;
-            font-size: 22px;
+            font-size: 2rem;
             color: #333;
+            margin-bottom: 20px;
         }
         .form-group {
             margin-bottom: 15px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
         }
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            box-sizing: border-box;
         }
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
         }
         .form-group button {
-            background-color: #e8491d;
+            background-color: #4CAF50;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
         .form-group button:hover {
-            background-color: #d43f00;
+            background-color: #45a049;
         }
-        .footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .form-group button:active {
+            background-color: #388e3c;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Contactez-Nous</h1>
-        </div>
+        <h1>Contactez-Nous</h1>
     </header>
 
     <div class="container">
@@ -95,25 +87,21 @@
             <form action="#" method="post">
                 <div class="form-group">
                     <label for="firstName">Prénom :</label>
-                    <input type="text" id="firstName" name="firstName" required>
+                    <input type="text" id="firstName" name="firstName" required placeholder="Votre prénom">
                 </div>
                 <div class="form-group">
                     <label for="lastName">Nom :</label>
-                    <input type="text" id="lastName" name="lastName" required>
+                    <input type="text" id="lastName" name="lastName" required placeholder="Votre nom">
                 </div>
                 <div class="form-group">
                     <label for="message">Message :</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <textarea id="message" name="message" required placeholder="Votre message"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit">Envoyer</button>
                 </div>
             </form>
         </div>
-    </div>
-
-    <div class="footer">
-        <p>&copy; 2024 VotreSite - Tous droits réservés</p>
     </div>
 </body>
 </html>
