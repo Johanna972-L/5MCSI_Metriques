@@ -6,60 +6,62 @@
     <title>Contactez-Nous</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #4CAF50;
+            background-color: #333;
             color: #fff;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
-            font-weight: 300;
+            font-size: 2rem;
         }
         .container {
-            width: 90%;
+            width: 80%;
             max-width: 900px;
             margin: 30px auto;
             padding: 20px;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .form-container h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #333;
             margin-bottom: 20px;
         }
         .form-group {
+            width: 100%;
             margin-bottom: 15px;
         }
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 500;
             color: #555;
         }
         .form-group input, .form-group textarea {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
         }
         .form-group input:focus, .form-group textarea:focus {
-            border-color: #4CAF50;
+            border-color: #007BFF;
             outline: none;
-            box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
         }
         .form-group button {
-            background-color: #4CAF50;
+            background-color: #007BFF;
             color: #fff;
             border: none;
             padding: 12px 20px;
@@ -69,10 +71,10 @@
             transition: background-color 0.3s ease;
         }
         .form-group button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
         }
         .form-group button:active {
-            background-color: #388e3c;
+            background-color: #004494;
         }
     </style>
 </head>
