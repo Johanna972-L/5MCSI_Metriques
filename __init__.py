@@ -52,6 +52,7 @@ def commits():
     # Convertir en liste de tuples pour Google Charts
     data = [{'minute': minute, 'count': count} for minute, count in minute_counts.items()]
     return jsonify(data)
+    return render_template("commits.html")
 
 if __name__ == "__main__":
   app.run(debug=True)
